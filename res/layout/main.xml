@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent" android:layout_height="fill_parent"
+  android:orientation="vertical">
+  
+  
+  <include layout="@layout/header" android:id="@+id/header" />
+  
+  
+  <RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <!-- Subtotal -->
+    <EditText android:id="@+id/subtotal" android:layout_width="100sp"
+      android:layout_height="wrap_content" android:inputType="numberDecimal"
+      android:layout_alignParentRight="true"
+      android:selectAllOnFocus="true"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="@string/default_price" />
+    <TextView android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:layout_alignBaseline="@id/subtotal"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="@string/subtotal" />
+      
+      
+    <!-- Tax -->
+    <EditText android:id="@+id/tax" android:layout_width="100sp"
+      android:layout_height="wrap_content" android:inputType="numberDecimal"
+      android:layout_alignParentRight="true" android:layout_below="@id/subtotal"
+      android:selectAllOnFocus="true"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="@string/default_price" />
+    <TextView android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:layout_alignBaseline="@id/tax"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="@string/tax" />
+    <TextView android:id="@+id/textTaxPercent"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_alignBaseline="@id/tax" android:layout_toLeftOf="@id/tax"
+      android:textAppearance="?android:attr/textAppearanceMedium" />
+      
+      
+    <!-- Tip -->
+    <SeekBar android:id="@+id/tipSlider" android:layout_width="100sp"
+      android:layout_height="wrap_content" android:layout_below="@id/tax"
+      android:layout_centerInParent="true" android:paddingTop="5sp"
+      android:progress="0" android:max="100" />
+    <EditText android:id="@+id/tip" android:layout_width="100sp"
+      android:layout_height="wrap_content" android:inputType="numberDecimal"
+      android:layout_alignParentRight="true" android:layout_below="@id/tax"
+      android:selectAllOnFocus="true"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="@string/default_price" />
+    <TextView android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:layout_alignBaseline="@id/tip"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="@string/tip" />
+    <CheckBox android:id="@+id/tipOption"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_below="@id/tipSlider"
+      android:text="@string/tax_option"/>
+    
+    
+    <!-- Total -->
+    <View android:id="@+id/line" android:layout_width="fill_parent"
+      android:layout_height="1sp" android:layout_marginTop="5sp"
+      android:layout_marginBottom="5sp" android:layout_below="@id/tipOption"
+      android:background="#000066" />
+    <TextView android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:layout_below="@id/line"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:text="@string/total" />
+    <TextView android:id="@+id/textTotalPrice"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_below="@id/line" android:layout_alignParentRight="true"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:text="@string/total_price" />
+    <Button android:id="@+id/totalButton" android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:layout_below="@id/textTotalPrice"
+      android:layout_alignParentRight="true" android:text="@string/total_button"
+      android:layout_marginBottom="0sp" />
+  </RelativeLayout>
+  
+  
+  <include layout="@layout/progress" android:id="@+id/progress" />
+</LinearLayout>

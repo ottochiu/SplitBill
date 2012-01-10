@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title">Split the Bill</string>
+    <string name="app_name">SplitBill</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="tax">Tax</string>
+    <string name="tip">Tip</string>
+    <string name="tax_option">Tip Post-Tax</string>
+    <string name="total">Total:</string>
+    <string name="total_price">$0.00</string>
+    <string name="default_price">0.00</string>
+    <string name="total_button">Next</string>
+    
+</resources>
