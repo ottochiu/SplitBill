@@ -76,7 +76,7 @@ class ChangeListener implements TextWatcher, OnCheckedChangeListener
 		mTotal = total;
 	}
 	
-	@Override
+	// @Override
 	public void afterTextChanged(Editable s) {
 		try {
 			double subtotal = getSubtotal();
@@ -99,17 +99,17 @@ class ChangeListener implements TextWatcher, OnCheckedChangeListener
 		}
 	}
 
-	@Override
+	// @Override
 	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 		// do nothing
 	}
 
-	@Override
+	// @Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		// do nothing
 	}
 	
-	@Override
+	// @Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		try {
 			// Always change tip slider for checkbox changes (assume tip amount is fixed)
