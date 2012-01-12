@@ -40,23 +40,31 @@
       
       
     <!-- Tip -->
-    <SeekBar android:id="@+id/tipSlider" android:layout_width="100sp"
-      android:layout_height="wrap_content" android:layout_below="@id/tax"
-      android:layout_centerInParent="true" android:paddingTop="5sp"
-      android:progress="0" android:max="100" />
     <EditText android:id="@+id/tip" android:layout_width="100sp"
       android:layout_height="wrap_content" android:inputType="numberDecimal"
       android:layout_alignParentRight="true" android:layout_below="@id/tax"
       android:selectAllOnFocus="true"
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:text="@string/default_price" />
-    <TextView android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:layout_alignBaseline="@id/tip"
+    <TextView 
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+	  android:layout_alignBaseline="@id/tip" android:layout_toLeftOf="@id/tip"
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:text="@string/tip" />
+    
+    <TextView android:id="@+id/textTipPercent"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+	  android:layout_alignBaseline="@id/tip" android:layout_alignParentLeft="true"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="@string/tip_percent" />    
+    <EditText android:id="@+id/tipPercent" android:layout_width="100sp"
+      android:layout_height="wrap_content" android:inputType="numberDecimal"
+      android:layout_toRightOf="@id/textTipPercent" android:layout_alignBaseline="@id/tip" android:selectAllOnFocus="true"
+      android:text="@string/default_price"/>
+    
     <CheckBox android:id="@+id/tipOption"
       android:layout_width="wrap_content" android:layout_height="wrap_content"
-      android:layout_below="@id/tipSlider"
+      android:layout_below="@id/tip"
       android:text="@string/tax_option"/>
     
     
