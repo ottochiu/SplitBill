@@ -7,31 +7,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 class ChangeListener implements TextWatcher, OnCheckedChangeListener {
-	ChangeListener(
-			EditText subtotal,
-			EditText tax,
-			TextView taxPercent,
-			EditText tip,
-			CheckBox tipOption,
-			EditText tipPercent,
-			TextView total) {
-		mSubtotal = subtotal.getEditableText();
-		mTax = tax.getEditableText();
-		mTaxPercent = taxPercent;
-		mTip = tip;
-		mTipOption = tipOption;
-		mTipPercent = tipPercent;
-		mTotal = total;
-	}
 	
-	@Override
 	public void afterTextChanged(Editable s) {
 		try {
 			// subtotal or tip was updated. make changes only when subtotal > 0
@@ -40,11 +21,10 @@ class ChangeListener implements TextWatcher, OnCheckedChangeListener {
 				System.out.println("subtotal > 0");
 				
 				// update tax percentage
-				setPercent(mTaxPercent, (getTax() / getSubtotal()));
+				setPercent(Main.mTaxPercent, (getTax() / getSubtotal()));
 
 				// update tip
-//				TODO
-				
+				Main.mLastChange.updateTip();
 				
 				// always recalculate total
 				updateTotal();
@@ -53,56 +33,42 @@ class ChangeListener implements TextWatcher, OnCheckedChangeListener {
 		}
 	}
 
-	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {}
 	
-	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-// TODO
 		System.out.println("Check changed");
+		Main.mLastChange.updateTip();
 	}
-	
-	
-	
-	
-	
-	
 	
 	static void setPercent(TextView view, double value) {
 		view.setText(new DecimalFormat("#0.000%").format(value));
 	}
 	
-	void updateTotal() {
-		System.out.printf("%f %f %f\n", getSubtotal(), getTax(), getTip());
-		mTotal.setText(NumberFormat.getCurrencyInstance().format(getSubtotal() + getTax() + getTip()));
+	static void updateTotal() {
+		System.out.printf("%f %f %f\n", getSubtotal(), getTax(), getTipAmount());
+		Main.mTotal.setText(NumberFormat.getCurrencyInstance().format(getSubtotal() + getTax() + getTipAmount()));
 	}
 	
-	double getSubtotal() {
-		return Double.parseDouble(mSubtotal.toString());
+	static double getSubtotal() {
+		return Double.parseDouble(Main.mSubtotal.getText().toString());
 	}
 	
-	double getTax() {
-		return Double.parseDouble(mTax.toString());
+	static double getTax() {
+		return Double.parseDouble(Main.mTax.getText().toString());
 	}
 
-	double getTip() {
-		return Double.parseDouble(mTip.getText().toString());
+	static double getTipAmount() {
+		return Double.parseDouble(Main.mTipAmount.getText().toString());
+	}
+	
+	static double getTipPercent() {
+		return Double.parseDouble(Main.mTipPercent.getText().toString());
 	}
 	
 	
-	
-	
-	static TipListener mLastChange; 
-	private Editable mSubtotal;
-	private Editable mTax;
-	private TextView mTaxPercent;
-	private EditText mTip;
-	private CheckBox mTipOption;
-	private EditText mTipPercent;
-	private TextView mTotal;
+	static TipListener mLastChange;
 }
 
 
@@ -114,104 +80,49 @@ abstract class TipListener implements TextWatcher, OnFocusChangeListener {
 		mChangeCandidate = hasFocus;
 	}
 	
-	protected boolean mChangeCandidate = false;
+	public void afterTextChanged(Editable s) {
+		if (mChangeCandidate) {
+			Main.mLastChange = this;
+			updateTip();
+			ChangeListener.updateTotal();
+		}
+	}
+	
+	private boolean mChangeCandidate = false;
 }
 
 
 class PercentListener extends TipListener {
 	void updateTip() {
+		double tipBasis = Main.mTipOption.isChecked() ?
+				ChangeListener.getSubtotal() + ChangeListener.getTax() :
+					ChangeListener.getSubtotal();
+					
+		double amount = tipBasis * ChangeListener.getTipPercent() / 100;
 		
+		Main.mTipAmount.setText(new DecimalFormat("#.##").format(amount));
 	}
 
-	@Override
-	public void afterTextChanged(Editable s) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
 }
 
 class AmountListener extends TipListener {
 	void updateTip() {
+		double tipBasis = Main.mTipOption.isChecked() ?
+				ChangeListener.getSubtotal() + ChangeListener.getTax() :
+					ChangeListener.getSubtotal();
 		
+		ChangeListener.setPercent(
+				Main.mTipPercent, 
+				ChangeListener.getTipAmount() / tipBasis);
 	}
 
-	@Override
-	public void afterTextChanged(Editable s) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
 }
-
-
-	
-
-//class BillChangeListener extends ChangeListener implements TextWatcher, OnCheckedChangeListener
-//{
-//
-//	// @Override
-//	protected void updateTip() {
-//		System.out.println("update tip");
-//		double tipBasis = mTipOption.isChecked() ? (getSubtotal() + getTax()) : getSubtotal(); 
-//		setPercent(mTipPercent, (getTip() / tipBasis));
-//		System.out.println("update tip done");
-//	}
-//}
-//
-//
-//class TipPercentListener extends ChangeListener implements TextWatcher {
-//
-//	public void afterTextChanged(Editable arg0) {
-//		System.out.println("Tip% change candidate: " + mChangeCandidate);
-//		
-//		if (mChangeCandidate) {
-//			try {
-//				// tip percent changed. update the tax amount box
-//				mLastChange = this;
-//				mLastChange.updateTip();
-//				updateTotal();
-//			} catch (NumberFormatException e) {
-//				// do nothing
-//			}
-//		}
-//	}
-//
-//	@Override
-//	protected void updateTip() {
-//		// change the tip amount and the total
-//		double tipBasis = mTipOption.isChecked() ? (getSubtotal() + getTax()) : getSubtotal();
-//		
-//		System.out.printf("Tip, %f %s\n", tipBasis, mTipPercent.getText().toString());
-//		mTip.setText(new DecimalFormat("#.##").
-//				format(tipBasis * Double.parseDouble(mTipPercent.getText().toString()) / 100));
-//	}
-//	
-//}
-//
