@@ -15,20 +15,17 @@ class ChangeListener implements TextWatcher, OnCheckedChangeListener {
 	
 	public void afterTextChanged(Editable s) {
 		try {
-			// subtotal or tip was updated. make changes only when subtotal > 0
-			if (getSubtotal() > 0)
-			{
-				System.out.println("subtotal > 0");
-				
-				// update tax percentage
-				setPercent(Main.mTaxPercent, (getTax() / getSubtotal()));
+			// subtotal or tip was updated.
+			System.out.println("subtotal > 0");
 
-				// update tip
-				Main.mLastChange.updateTip();
-				
-				// always recalculate total
-				updateTotal();
-			}
+			// update tax percentage
+			setPercent(Main.mTaxPercent, (getTax() / getSubtotal()));
+
+			// update tip
+			Main.mLastChange.updateTip();
+
+			// always recalculate total
+			updateTotal();
 		} catch (NumberFormatException e) {
 		}
 	}
@@ -52,19 +49,35 @@ class ChangeListener implements TextWatcher, OnCheckedChangeListener {
 	}
 	
 	static double getSubtotal() {
-		return Double.parseDouble(Main.mSubtotal.getText().toString());
+		try {
+			return Double.parseDouble(Main.mSubtotal.getText().toString());
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
 	
 	static double getTax() {
-		return Double.parseDouble(Main.mTax.getText().toString());
+		try {
+			return Double.parseDouble(Main.mTax.getText().toString());
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
 
 	static double getTipAmount() {
-		return Double.parseDouble(Main.mTipAmount.getText().toString());
+		try {
+			return Double.parseDouble(Main.mTipAmount.getText().toString());
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
 	
 	static double getTipPercent() {
-		return Double.parseDouble(Main.mTipPercent.getText().toString());
+		try {
+			return Double.parseDouble(Main.mTipPercent.getText().toString());
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
 	
 	

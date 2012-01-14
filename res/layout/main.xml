@@ -84,7 +84,7 @@
       android:text="@string/total_price" />
     <Button android:id="@+id/totalButton" android:layout_width="wrap_content"
       android:layout_height="wrap_content" android:layout_below="@id/textTotalPrice"
-      android:layout_alignParentRight="true" android:text="@string/total_button"
+      android:layout_alignParentRight="true" android:text="@string/next"
       android:layout_marginBottom="0sp" />
   </RelativeLayout>
   

@@ -1,7 +1,10 @@
 package com.ottochiu.splitbill;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,11 +21,9 @@ public class Main extends Activity {
         setContentView(R.layout.main);
         
         // Setup progress bar
-        ProgressBar bar = (ProgressBar) findViewById(R.id.progressBar);
-        bar.setProgress(0);
+        ((ProgressBar) findViewById(R.id.progressBar)).setProgress(0);
+        ((TextView) findViewById(R.id.textProgressBar)).setText("0%");
         
-        TextView progressText = (TextView) findViewById(R.id.textProgressBar);
-        progressText.setText("0%");
         
         mSubtotal = (EditText) findViewById(R.id.subtotal);
         mTax = (EditText) findViewById(R.id.tax);
@@ -53,6 +54,25 @@ public class Main extends Activity {
         TipListener percentListener = new PercentListener();
         mTipPercent.addTextChangedListener(percentListener);
         mTipPercent.setOnFocusChangeListener(percentListener);
+        
+        
+        // Total button
+        findViewById(R.id.totalButton).setOnClickListener(
+        		new OnClickListener() {
+					
+					public void onClick(View v) {
+						AppData data = (AppData) getApplication();
+						data.update(
+								ChangeListener.getSubtotal(), 
+								ChangeListener.getTax(), 
+								ChangeListener.getTipAmount());
+						
+						if (data.total > 0) {
+							Intent intent = new Intent(v.getContext(), SplitOptions.class);
+			                startActivity(intent);
+						}
+					}
+				});
     }
     
     static TipListener mLastChange;
