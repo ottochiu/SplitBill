@@ -2,8 +2,6 @@ package com.ottochiu.splitbill;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.Currency;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class SplitOptions extends Activity implements TextWatcher {
@@ -28,24 +25,22 @@ public class SplitOptions extends Activity implements TextWatcher {
         parties = Integer.parseInt(partiesView.getText().toString());
         partiesView.addTextChangedListener(this);
         afterTextChanged(partiesView.getEditableText());
-        
-        // Setup progress bar
-        ((ProgressBar) findViewById(R.id.progressBar)).setProgress(30);
-        ((TextView) findViewById(R.id.textProgressBar)).setText("30%");
 	}
 	
 	public void splitMethodChanged(View v) {
 		View perPartyCost = findViewById(R.id.perPartyCost);
-
+		View splitUneven = findViewById(R.id.viewSplitUneven);
 		
 		// split evenly means a simple division.
 		if (((CheckBox) v).isChecked()) {
 			afterTextChanged(((TextView) findViewById(R.id.parties)).getEditableText());
 			perPartyCost.setVisibility(View.VISIBLE);
-			// TODO set other view GONE
+			// remove items from view
+			splitUneven.setVisibility(View.GONE);
 		} else {
 			// varying split means for each party, calculate the split.
-			// TODO set view VISIBLE
+			// add items to view			
+			splitUneven.setVisibility(View.VISIBLE);			
 			perPartyCost.setVisibility(View.GONE);
 		}
 		

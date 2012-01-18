@@ -20,11 +20,6 @@ public class Main extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         
-        // Setup progress bar
-        ((ProgressBar) findViewById(R.id.progressBar)).setProgress(0);
-        ((TextView) findViewById(R.id.textProgressBar)).setText("0%");
-        
-        
         mSubtotal = (EditText) findViewById(R.id.subtotal);
         mTax = (EditText) findViewById(R.id.tax);
         mTaxPercent = (TextView) findViewById(R.id.textTaxPercent);

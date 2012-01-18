@@ -36,7 +36,16 @@
 	   	    android:layout_below="@id/splitEven"
 	   	    android:textAppearance="?android:attr/textAppearanceMedium" 
 	   	    />
+      
+      <LinearLayout android:id="@+id/viewSplitUneven" 
+          android:layout_width="fill_parent" android:layout_height="fill_parent"
+          android:orientation="vertical"
+          android:layout_below="@id/splitEven"
+          android:visibility="gone" >
+
+          <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="VIEW SPLIT UNEVEN" 
+          />
+      </LinearLayout>
   </RelativeLayout>
-  
-  <include layout="@layout/progress" android:id="@+id/progress" />
 </LinearLayout>
