@@ -5,17 +5,38 @@
   
   
   <include layout="@layout/header" android:id="@+id/header" />
-  
-  
-  <RelativeLayout android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
 
-    <Button android:id="@+id/optionButton" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" 
-      android:layout_alignParentRight="true" android:text="@string/next"
-      android:layout_marginBottom="0sp" />
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+      
+      <EditText android:id="@+id/parties" android:layout_width="50sp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:inputType="number"
+          android:text="1"
+          android:maxLength="2"
+          android:selectAllOnFocus="true"/>
+      
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+          android:text="@string/split" android:layout_alignBaseline="@id/parties"
+          android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+      <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+          android:id="@+id/splitEven"
+          android:text="@string/split_even" android:layout_below="@id/parties"
+          android:textAppearance="?android:attr/textAppearanceMedium" 
+          android:checked="true"
+          android:onClick="splitMethodChanged"/>
+     
+	   
+	   	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+	   	    android:id="@+id/perPartyCost"
+	   	    android:layout_below="@id/splitEven"
+	   	    android:textAppearance="?android:attr/textAppearanceMedium" 
+	   	    />
   </RelativeLayout>
-  
   
   <include layout="@layout/progress" android:id="@+id/progress" />
 </LinearLayout>

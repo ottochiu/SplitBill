@@ -16,9 +16,11 @@ public final class R {
     public static final class id {
         public static final int header=0x7f050000;
         public static final int line=0x7f050008;
-        public static final int optionButton=0x7f05000e;
+        public static final int parties=0x7f05000e;
+        public static final int perPartyCost=0x7f050010;
         public static final int progress=0x7f05000b;
         public static final int progressBar=0x7f05000d;
+        public static final int splitEven=0x7f05000f;
         public static final int subtotal=0x7f050001;
         public static final int tax=0x7f050002;
         public static final int textProgressBar=0x7f05000c;
@@ -40,6 +42,8 @@ public final class R {
         public static final int app_name=0x7f040001;
         public static final int default_price=0x7f040008;
         public static final int next=0x7f040009;
+        public static final int split=0x7f04000b;
+        public static final int split_even=0x7f04000c;
         public static final int subtotal=0x7f040002;
         public static final int tax=0x7f040003;
         public static final int tax_option=0x7f040005;
